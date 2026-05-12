@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#060810">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Summer '26">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Your Summer 2026 Blueprint — Schedule, LSAT, SideShift, YouTube, Drums">
+<title>Summer Blueprint '26</title>
+
+<!-- PWA Manifest inline -->
+<script>
+const manifest = {
+  "name": "Summer Blueprint 2026",
+  "short_name": "Summer '26",
+  "description": "Your complete summer operating system",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#060810",
+  "theme_color": "#060810",
+  "orientation": "portrait",
+  "icons": [
+    {"src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='40' fill='%23060810'/><text x='96' y='130' font-size='100' text-anchor='middle' font-family='Arial'>🥁</text></svg>", "sizes": "192x192", "type": "image/svg+xml"}
+  ]
+};
+const blob = new Blob([JSON.stringify(manifest)], {type:'application/json'});
+const url = URL.createObjectURL(blob);
+const link = document.createElement('link');
+link.rel = 'manifest';
+link.href = url;
+document.head.appendChild(link);
+</script>
+
+<!-- Apple touch icon -->
+<link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%23060810'/><text x='90' y='125' font-size='90' text-anchor='middle'>🥁</text></svg>">
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Unbounded:wght@700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #060810;
+  --surface: #0d1117;
+  --card: #111827;
+  --card2: #161e2e;
+  --border: rgba(255,255,255,0.07);
+  --gold: #f5c518;
+  --cyan: #00e5ff;
+  --green: #00e676;
+  --red: #ff4444;
+  --purple: #b57aff;
+  --orange: #ff7043;
+  --text: #f0f4ff;
+  --muted: #6b7a99;
+  --dim: #2d3748;
+  --nav-h: 72px;
+  --status-pad: env(safe-area-inset-top, 0px);
+  --bottom-pad: env(safe-area-inset-bottom, 0px);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Space Grotesk', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ===== APP SHELL ===== */
+.app {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  padding-top: var(--status-pad);
+}
+
+/* ===== STATUS BAR AREA ===== */
+.status-bar {
+  background: var(--bg);
+  padding: 12px 20px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+.app-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 15px;
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+.app-title span { color: var(--gold); }
+.status-badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  background: rgba(0,229,255,0.1);
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 20px;
+  padding: 3px 10px;
+}
+
+/* ===== SCROLL AREA ===== */
+.content-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding-bottom: calc(var(--nav-h) + var(--bottom-pad) + 16px);
+}
+
+/* ===== SCREENS ===== */
+.screen { display: none; }
+.screen.active { display: block; }
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: calc(var(--nav-h) + var(--bottom-pad));
+  padding-bottom: var(--bottom-pad);
+  background: rgba(6,8,16,0.95);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: flex-start;
+  padding-top: 8px;
+  z-index: 100;
+}
+.nav-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 4px 0;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: var(--muted);
+  transition: color 0.15s;
+}
+.nav-btn.active { color: var(--cyan); }
+.nav-icon { font-size: 22px; }
+.nav-label { font-size: 9px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+
+/* ===== SECTION HEADERS ===== */
+.screen-header {
+  padding: 16px 20px 0;
+  margin-bottom: 4px;
+}
+.screen-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 20px;
+  font-weight: 900;
+  color: #fff;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.screen-sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin: 12px 16px 0;
+  overflow: hidden;
+}
+.card-head {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.card-title {
+  font-family: 'Unbounded', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+.card-tag {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 8px;
+}
+
+/* ===== TIME BLOCKS ===== */
+.time-block {
+  display: flex;
+  gap: 12px;
+  padding: 11px 16px;
+  border-bottom: 1px solid var(--border);
+  align-items: flex-start;
+}
+.time-block:last-child { border-bottom: none; }
+.tb-time {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--muted);
+  min-width: 42px;
+  padding-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+.tb-body {}
+.tb-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  align-items: center;
+}
+.tb-note { font-size: 11px; color: var(--muted); line-height: 1.4; }
+.badge {
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 6px;
+}
+.b-yt { background: rgba(0,229,255,0.12); color: var(--cyan); }
+.b-drum { background: rgba(245,197,24,0.12); color: var(--gold); }
+.b-lsat { background: rgba(181,122,255,0.12); color: var(--purple); }
+.b-biz { background: rgba(0,230,118,0.12); color: var(--green); }
+.b-gym { background: rgba(255,68,68,0.12); color: var(--red); }
+.b-dev { background: rgba(255,200,100,0.12); color: #ffd066; }
+.b-night { background: rgba(100,130,200,0.12); color: #8ba4ff; }
+
+/* ===== DAY SELECTOR ===== */
+.day-strip {
+  display: flex;
+  gap: 6px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.day-strip::-webkit-scrollbar { display: none; }
+.day-pill {
+  flex-shrink: 0;
+  padding: 7px 14px;
+  border-radius: 100px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.day-pill.active {
+  background: var(--cyan);
+  color: #000;
+  border-color: var(--cyan);
+}
+
+/* ===== GOALS SCREEN ===== */
+.goal-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 16px;
+  margin-top: 12px;
+}
+.goal-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 14px;
+  text-align: center;
+}
+.goal-card.full { grid-column: 1/-1; }
+.g-icon { font-size: 22px; margin-bottom: 6px; }
+.g-label { font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.g-val { font-family: 'Unbounded', sans-serif; font-size: 15px; font-weight: 700; line-height: 1.2; }
+.g-note { font-size: 10px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+
+/* ===== INCOME CARDS ===== */
+.income-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 16px;
+  margin-top: 12px;
+}
+.inc-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+}
+.inc-source { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+.inc-range { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+.inc-note { font-size: 10px; color: var(--muted); line-height: 1.4; }
+
+/* ===== LSAT TERM PILLS ===== */
+.term-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 0 16px;
+  margin-top: 12px;
+}
+.term-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+}
+.term-name {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--purple);
+  margin-bottom: 4px;
+  font-family: 'Unbounded', sans-serif;
+  font-size: 9px;
+}
+.term-def { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+/* ===== SIDESHIFT STEPS ===== */
+.ss-step {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 10px 16px 0;
+  position: relative;
+  border-top: 2px solid var(--cyan);
+}
+.ss-num { font-family: 'Unbounded', sans-serif; font-size: 28px; font-weight: 900; color: rgba(0,229,255,0.1); line-height: 1; margin-bottom: 4px; }
+.ss-title { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 6px; }
+.ss-body { font-size: 12px; color: var(--muted); line-height: 1.6; }
+.ss-body strong { color: var(--text); }
+
+/* ===== RESOURCE CARDS ===== */
+.res-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 10px 16px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.res-icon { font-size: 20px; margin-top: 1px; }
+.res-title { font-size: 13px; font-weight: 600; margin-bottom: 3px; }
+.res-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+.res-badge { display: inline-block; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 7px; border-radius: 6px; margin-top: 5px; }
+.rb-free { background: rgba(0,230,118,0.12); color: var(--green); }
+.rb-paid { background: rgba(255,112,67,0.12); color: var(--orange); }
+
+/* ===== SECTION LABEL ===== */
+.sec-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  padding: 20px 16px 4px;
+}
+
+/* ===== ALERT ===== */
+.alert {
+  margin: 12px 16px 0;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 12px;
+  line-height: 1.6;
+  border: 1px solid;
+}
+.alert.cyan { background: rgba(0,229,255,0.05); border-color: rgba(0,229,255,0.2); }
+.alert.cyan strong { color: var(--cyan); }
+.alert.purple { background: rgba(181,122,255,0.05); border-color: rgba(181,122,255,0.2); }
+.alert.purple strong { color: var(--purple); }
+.alert.gold { background: rgba(245,197,24,0.05); border-color: rgba(245,197,24,0.2); }
+.alert.gold strong { color: var(--gold); }
+.alert.green { background: rgba(0,230,118,0.05); border-color: rgba(0,230,118,0.2); }
+.alert.green strong { color: var(--green); }
+
+/* ===== WORKOUT ===== */
+.workout-list { padding: 0 16px; margin-top: 10px; }
+.workout-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.workout-item.rest { opacity: 0.4; }
+.wo-day { font-family: 'Unbounded', sans-serif; font-size: 11px; font-weight: 700; color: var(--muted); min-width: 32px; }
+.wo-focus { font-size: 13px; font-weight: 600; color: var(--text); }
+.wo-exercises { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.4; }
+.wo-bar { width: 3px; height: 40px; border-radius: 3px; flex-shrink: 0; }
+
+/* ===== LSAT PHASES ===== */
+.phase-cards { display: grid; grid-template-columns: 1fr; gap: 10px; padding: 0 16px; margin-top: 12px; }
+.phase-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  border-left: 3px solid var(--purple);
+}
+.phase-month { font-size: 9px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.phase-focus { font-family: 'Unbounded', sans-serif; font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+.phase-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* ===== BOTTOM SPACER ===== */
+.bottom-space { height: 20px; }
+
+/* ===== INSTALL BANNER ===== */
+.install-banner {
+  background: rgba(0,229,255,0.08);
+  border: 1px solid rgba(0,229,255,0.2);
+  border-radius: 14px;
+  margin: 12px 16px 0;
+  padding: 14px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+.install-icon { font-size: 24px; flex-shrink: 0; }
+.install-text { flex: 1; }
+.install-title { font-size: 13px; font-weight: 600; color: var(--cyan); margin-bottom: 2px; }
+.install-note { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+/* ===== CHAPTER TABS ===== */
+.chapter-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.chapter-tabs::-webkit-scrollbar { display: none; }
+.ch-tab {
+  flex-shrink: 0;
+  padding: 6px 12px;
+  border-radius: 8px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--muted);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.ch-tab.active { background: rgba(181,122,255,0.15); color: var(--purple); border-color: rgba(181,122,255,0.3); }
+
+/* ===== READING LIST ===== */
+.book-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 16px;
+  margin: 10px 16px 0;
+}
+.book-title { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
+.book-author { font-size: 11px; color: var(--gold); margin-bottom: 4px; }
+.book-desc { font-size: 11px; color: var(--muted); line-height: 1.5; }
+
+/* scroll hint */
+.scroll-hint { text-align: center; font-size: 10px; color: var(--dim); padding: 8px 0; letter-spacing: 0.1em; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- STATUS BAR -->
+  <div class="status-bar">
+    <div class="app-title">SUMMER <span>'26</span></div>
+    <div class="status-badge">🥁 WGI Medalist</div>
+  </div>
+
+  <!-- MAIN CONTENT AREA -->
+  <div class="content-area" id="contentArea">
+
+    <!-- ===== HOME SCREEN ===== -->
+    <div class="screen active" id="screen-home">
+      <div class="screen-header">
+        <div class="screen-title">Your<br>Blueprint.</div>
+        <div class="screen-sub">Summer 2026 · School's out · Build the year right.</div>
+      </div>
+
+      <div class="install-banner">
+        <div class="install-icon">📲</div>
+        <div class="install-text">
+          <div class="install-title">Install as App</div>
+          <div class="install-note">iPhone: Safari → Share → Add to Home Screen. Android: Chrome menu → Install App. No App Store needed.</div>
+        </div>
+      </div>
+
+      <div class="sec-label">Your Big 3 Goals</div>
+      <div class="goal-row">
+        <div class="goal-card">
+          <div class="g-icon">📺</div>
+          <div class="g-label">Subscribers</div>
+          <div class="g-val" style="color:var(--gold);">2K–3K</div>
+          <div class="g-note">By end of 2026</div>
+        </div>
+        <div class="goal-card">
+          <div class="g-icon">🥁</div>
+          <div class="g-label">WGI Goal</div>
+          <div class="g-val" style="color:var(--cyan);font-size:11px;">CAP CITY<br>WORLD</div>
+          <div class="g-note">Already a medalist</div>
+        </div>
+        <div class="goal-card full">
+          <div class="g-icon">💰</div>
+          <div class="g-label">Income</div>
+          <div class="g-val" style="color:var(--green);">Best Year Yet</div>
+          <div class="g-note">YouTube + eBay + SideShift + Dropshipping combined</div>
+        </div>
+      </div>
+
+      <div class="sec-label">Income Streams</div>
+      <div class="income-row">
+        <div class="inc-card">
+          <div class="inc-source">🛒 eBay</div>
+          <div class="inc-range" style="color:var(--gold);">$200–600/mo</div>
+          <div class="inc-note">2 listings/day. Electronics. Passive once listed.</div>
+        </div>
+        <div class="inc-card">
+          <div class="inc-source">🎬 SideShift</div>
+          <div class="inc-range" style="color:var(--cyan);">$500–1K/mo</div>
+          <div class="inc-note">UGC for brands. Your edit skills = cash.</div>
+        </div>
+        <div class="inc-card">
+          <div class="inc-source">🛍 Dropship</div>
+          <div class="inc-range" style="color:var(--green);">$200–800/mo</div>
+          <div class="inc-note">Wix store. Build this summer.</div>
+        </div>
+        <div class="inc-card">
+          <div class="inc-source">📺 YouTube</div>
+          <div class="inc-range" style="color:var(--purple);">$50–300/mo</div>
+          <div class="inc-note">Grows all year. Brand deals at 1K.</div>
+        </div>
+      </div>
+
+      <div class="sec-label">Morning Routine · Every Day · 7:45 AM</div>
+      <div class="card">
+        <div class="time-block">
+          <div class="tb-time">7:45</div>
+          <div class="tb-body"><div class="tb-title">Wake Up 🌅</div><div class="tb-note">Water first. Phone face-down 15 min. Set the tone.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">7:50</div>
+          <div class="tb-body"><div class="tb-title">🙏 Devotion + Prayer <span class="badge b-dev">Daily</span></div><div class="tb-note">Bible app or devotional. 10–15 min. Spirit first.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">8:05</div>
+          <div class="tb-body"><div class="tb-title">🧘 Meditation</div><div class="tb-note">5–10 min. Breathe. Visualize what you're building.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">8:15</div>
+          <div class="tb-body"><div class="tb-title">Hygiene + Get Dressed</div><div class="tb-note">Treat every morning like you're showing up somewhere that matters. Because you are.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">8:35</div>
+          <div class="tb-body"><div class="tb-title">Breakfast + Review Day</div><div class="tb-note">High protein. Know your #1 priority before you open the laptop.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">8:50</div>
+          <div class="tb-body"><div class="tb-title">🔥 Work Mode ON</div><div class="tb-note">Business first. Mind is sharpest now.</div></div>
+        </div>
+      </div>
+
+      <div class="sec-label">Night Routine · Every Day · 9:30 PM</div>
+      <div class="card">
+        <div class="time-block">
+          <div class="tb-time">9:30</div>
+          <div class="tb-body"><div class="tb-title">Shut Down 🔒</div><div class="tb-note">Log off. Transition out of creator mode into human mode.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">9:45</div>
+          <div class="tb-body"><div class="tb-title">📖 Reading Session</div><div class="tb-note">30 min. Real book, no screens. Writing brain-builder.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">10:15</div>
+          <div class="tb-body"><div class="tb-title">Shower + Skin Routine</div><div class="tb-note">Take care of yourself.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">10:35</div>
+          <div class="tb-body"><div class="tb-title">Stretch / Decompress Back</div><div class="tb-note">Spinal decompression, hip flexors. 10 min. Non-negotiable for drummers.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">10:50</div>
+          <div class="tb-body"><div class="tb-title">🙏 Evening Prayer + Gratitude</div><div class="tb-note">Journal 3 wins. End with intention, not doom-scrolling.</div></div>
+        </div>
+        <div class="time-block">
+          <div class="tb-time">11:00</div>
+          <div class="tb-body"><div class="tb-title">💤 Lights Out</div><div class="tb-note">Phone on DND. Sleep is your performance recovery.</div></div>
+        </div>
+      </div>
+      <div class="bottom-space"></div>
+    </div>
+
+    <!-- ===== SCHEDULE SCREEN ===== -->
+    <div class="screen" id="screen-schedule">
+      <div class="screen-header">
+        <div class="screen-title">Schedule.</div>
+        <div class="screen-sub">Tap a day to see your full plan.</div>
+      </div>
+
+      <div class="day-strip" id="dayStrip">
+        <div class="day-pill active" onclick="showDay('mon')">Mon</div>
+        <div class="day-pill" onclick="showDay('tue')">Tue</div>
+        <div class="day-pill" onclick="showDay('wed')">Wed</div>
+        <div class="day-pill" onclick="showDay('thu')">Thu</div>
+        <div class="day-pill" onclick="showDay('fri')">Fri</div>
+        <div class="day-pill" onclick="showDay('sat')">Sat</div>
+        <div class="day-pill" onclick="showDay('sun')">Sun</div>
+      </div>
+
+      <!-- Day content containers -->
+      <div id="day-mon">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title" style="color:var(--cyan);">Monday</div>
+            <div class="card-tag" style="background:rgba(255,68,68,0.12);color:var(--red);">Shoulders + Arms</div>
+          </div>
+          <div class="time-block"><div class="tb-time">7:45</div><div class="tb-body"><div class="tb-title">Morning Routine <span class="badge b-dev">Devotion</span></div><div class="tb-note">Full morning routine. 8:50 work-ready.</div></div></div>
+          <div class="time-block"><div class="tb-time">8:50</div><div class="tb-body"><div class="tb-title">eBay — List 2 Items <span class="badge b-biz">eBay</span></div><div class="tb-note">Photos, descriptions, pricing. 30–40 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Dropshipping Work <span class="badge b-biz">Wix/DS</span></div><div class="tb-note">Product research, store build, supplier outreach. 60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">10:30</div><div class="tb-body"><div class="tb-title">SideShift — Browse + Apply <span class="badge b-biz">SideShift</span></div><div class="tb-note">Apply to 5–10 brand gigs. 30 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">11:00</div><div class="tb-body"><div class="tb-title">YouTube — Record Footage <span class="badge b-yt">YT</span></div><div class="tb-note">Gaming or drum footage. 30–45 min raw content.</div></div></div>
+          <div class="time-block"><div class="tb-time">12:15</div><div class="tb-body"><div class="tb-title">Lunch Break</div><div class="tb-note">Eat real food. Step away from screens.</div></div></div>
+          <div class="time-block"><div class="tb-time">1:00</div><div class="tb-body"><div class="tb-title">LSAT — Flaw + Assumption <span class="badge b-lsat">LSAT</span></div><div class="tb-note">Most common LR types. 90 min focused. Khan Academy or 7Sage.</div></div></div>
+          <div class="time-block"><div class="tb-time">2:30</div><div class="tb-body"><div class="tb-title">Workout — Shoulders + Arms <span class="badge b-gym">Gym</span></div><div class="tb-note">OHP · Lateral Raises · Curls · Overhead Tricep Extension. 45–60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:45</div><div class="tb-body"><div class="tb-title">Video Editing — Main Block <span class="badge b-yt">YT</span></div><div class="tb-note">CapCut. Finish 1 full video. 90 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">5:15</div><div class="tb-body"><div class="tb-title">Drum Practice <span class="badge b-drum">Drum</span></div><div class="tb-note">45–60 min. Rudiments, rolls, timing. Cap City World prep.</div></div></div>
+          <div class="time-block"><div class="tb-time">6:30</div><div class="tb-body"><div class="tb-title">Free Time</div><div class="tb-note">Decompress. Live your life.</div></div></div>
+          <div class="time-block"><div class="tb-time">8:00</div><div class="tb-body"><div class="tb-title">LSAT Light Review <span class="badge b-lsat">LSAT</span></div><div class="tb-note">Review morning session. 30–45 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Night Routine <span class="badge b-night">Night</span></div><div class="tb-note">Reading → Shower → Stretch → Prayer → 11pm lights out.</div></div></div>
+        </div>
+      </div>
+
+      <div id="day-tue" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title" style="color:var(--gold);">Tuesday</div>
+            <div class="card-tag" style="background:rgba(245,197,24,0.12);color:var(--gold);">Back + Biceps</div>
+          </div>
+          <div class="time-block"><div class="tb-time">7:45</div><div class="tb-body"><div class="tb-title">Morning Routine <span class="badge b-dev">Devotion</span></div><div class="tb-note">Full routine. 8:50 work-ready.</div></div></div>
+          <div class="time-block"><div class="tb-time">8:50</div><div class="tb-body"><div class="tb-title">YouTube — Primary Editing Block <span class="badge b-yt">YT</span></div><div class="tb-note">Main creative block. Edit gaming or drum video. 2 hrs min.</div></div></div>
+          <div class="time-block"><div class="tb-time">10:50</div><div class="tb-body"><div class="tb-title">Drum Content — Film Clip <span class="badge b-drum">Drum</span></div><div class="tb-note">Film technique reel. Edit to 30–90 sec for Shorts/Reels.</div></div></div>
+          <div class="time-block"><div class="tb-time">12:00</div><div class="tb-body"><div class="tb-title">eBay + Dropshipping Admin <span class="badge b-biz">Business</span></div><div class="tb-note">List 2 items. Check DS orders. Ship what sold. 45 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">12:45</div><div class="tb-body"><div class="tb-title">Lunch</div><div class="tb-note">Real food. No screens.</div></div></div>
+          <div class="time-block"><div class="tb-time">1:30</div><div class="tb-body"><div class="tb-title">LSAT — Logic Games <span class="badge b-lsat">LSAT</span></div><div class="tb-note">Analytical Reasoning. Sequencing + grouping. 90 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:00</div><div class="tb-body"><div class="tb-title">Workout — Back + Biceps <span class="badge b-gym">Gym</span></div><div class="tb-note">Wide-Grip Pull-ups · Band Pull-Aparts · DB Row · Hammer Curls. 45–60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">4:15</div><div class="tb-body"><div class="tb-title">SideShift — Create UGC Content <span class="badge b-biz">SideShift</span></div><div class="tb-note">Film/edit deliverable for accepted brand campaign.</div></div></div>
+          <div class="time-block"><div class="tb-time">5:30</div><div class="tb-body"><div class="tb-title">Drum Practice <span class="badge b-drum">Drum</span></div><div class="tb-note">45 min. Record yourself. Watch playback — WGI critical eye.</div></div></div>
+          <div class="time-block"><div class="tb-time">7:00</div><div class="tb-body"><div class="tb-title">Post Video + SEO + Engagement <span class="badge b-yt">YT</span></div><div class="tb-note">Post. Title/desc/tags. Reply to ALL comments first hour. Post Short.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Night Routine <span class="badge b-night">Night</span></div><div class="tb-note">Reading → Shower → Stretch → Prayer → 11pm.</div></div></div>
+        </div>
+      </div>
+
+      <div id="day-wed" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title" style="color:var(--green);">Wednesday</div>
+            <div class="card-tag" style="background:rgba(0,230,118,0.12);color:var(--green);">Active Recovery</div>
+          </div>
+          <div class="time-block"><div class="tb-time">7:45</div><div class="tb-body"><div class="tb-title">Morning Routine <span class="badge b-dev">Devotion</span></div><div class="tb-note">Worship harder today — midweek reset.</div></div></div>
+          <div class="time-block"><div class="tb-time">8:50</div><div class="tb-body"><div class="tb-title">LSAT — Reading Comprehension <span class="badge b-lsat">LSAT</span></div><div class="tb-note">Long-form passages, inference questions. Best day — you're rested. 90 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">10:20</div><div class="tb-body"><div class="tb-title">Dropshipping — Deep Work <span class="badge b-biz">Wix/DS</span></div><div class="tb-note">Product research, marketing copy, storefront optimization. 90 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">11:50</div><div class="tb-body"><div class="tb-title">eBay Listings + Pricing <span class="badge b-biz">eBay</span></div><div class="tb-note">List 2 items. Adjust slow movers. Research comps. 45 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">12:35</div><div class="tb-body"><div class="tb-title">Lunch + Walk Outside</div><div class="tb-note">Active recovery. Walk. Get sun. Let muscles recover.</div></div></div>
+          <div class="time-block"><div class="tb-time">1:30</div><div class="tb-body"><div class="tb-title">YouTube — Concept Planning <span class="badge b-yt">YT</span></div><div class="tb-note">Script next 2 videos. Thumbnail ideas. Review analytics. No film pressure.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:00</div><div class="tb-body"><div class="tb-title">Mobility + Stretching</div><div class="tb-note">No workout. Stretch, foam roll, hip flexors, band work. 30 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:30</div><div class="tb-body"><div class="tb-title">Free Time</div><div class="tb-note">Game, chill, call friends, nap. Wednesday afternoon is yours.</div></div></div>
+          <div class="time-block"><div class="tb-time">5:00</div><div class="tb-body"><div class="tb-title">Extended Drum Session <span class="badge b-drum">Drum</span></div><div class="tb-note">60–75 min. Your best session of the week. No fatigue. Full run-throughs.</div></div></div>
+          <div class="time-block"><div class="tb-time">6:30</div><div class="tb-body"><div class="tb-title">SideShift — Apply to Gigs <span class="badge b-biz">SideShift</span></div><div class="tb-note">Browse new briefs. Apply to 5–10 campaigns. 30 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Night Routine <span class="badge b-night">Night</span></div><div class="tb-note">Reading → Shower → Stretch → Prayer → Lights out.</div></div></div>
+        </div>
+      </div>
+
+      <div id="day-thu" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title" style="color:var(--purple);">Thursday</div>
+            <div class="card-tag" style="background:rgba(181,122,255,0.12);color:var(--purple);">Chest + Triceps</div>
+          </div>
+          <div class="time-block"><div class="tb-time">7:45</div><div class="tb-body"><div class="tb-title">Morning Routine <span class="badge b-dev">Devotion</span></div><div class="tb-note">Big creation day ahead. Set your mind right.</div></div></div>
+          <div class="time-block"><div class="tb-time">8:50</div><div class="tb-body"><div class="tb-title">🎙 MAIN Recording Session <span class="badge b-yt">YT</span></div><div class="tb-note">GOLDEN BLOCK. 45–60 min gameplay + commentary. Aim for 2 videos' worth.</div></div></div>
+          <div class="time-block"><div class="tb-time">10:00</div><div class="tb-body"><div class="tb-title">eBay + Dropshipping Morning Run <span class="badge b-biz">Business</span></div><div class="tb-note">List 2 items. DS orders. 45 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">10:45</div><div class="tb-body"><div class="tb-title">LSAT — Strengthen + Weaken <span class="badge b-lsat">LSAT</span></div><div class="tb-note">Most common LR types. 90 min timed drills.</div></div></div>
+          <div class="time-block"><div class="tb-time">12:15</div><div class="tb-body"><div class="tb-title">Lunch</div><div class="tb-note">Protein heavy. Pre-workout fuel.</div></div></div>
+          <div class="time-block"><div class="tb-time">1:00</div><div class="tb-body"><div class="tb-title">Workout — Chest + Triceps <span class="badge b-gym">Gym</span></div><div class="tb-note">Push-ups · Floor Press · Tricep Kickbacks · Diamond Push-ups. 45–60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">2:15</div><div class="tb-body"><div class="tb-title">Drum Practice <span class="badge b-drum">Drum</span></div><div class="tb-note">30–45 min. Technique + film a short clip.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:15</div><div class="tb-body"><div class="tb-title">Editing Block <span class="badge b-yt">YT</span></div><div class="tb-note">Edit morning's footage. Cut, color, caption, B-roll. 90 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">5:00</div><div class="tb-body"><div class="tb-title">SideShift — UGC Delivery <span class="badge b-biz">SideShift</span></div><div class="tb-note">Submit brand content. Invoice. Check analytics. 30 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">5:30</div><div class="tb-body"><div class="tb-title">Free Time</div><div class="tb-note">Game, friends, rest. You earned the evening.</div></div></div>
+          <div class="time-block"><div class="tb-time">7:30</div><div class="tb-body"><div class="tb-title">LSAT Review + Tutor Prep <span class="badge b-lsat">LSAT</span></div><div class="tb-note">Review errors. Prepare questions for tutor. Note wrong-answer patterns.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Night Routine <span class="badge b-night">Night</span></div><div class="tb-note">Reading → Shower → Stretch → Prayer → 11pm.</div></div></div>
+        </div>
+      </div>
+
+      <div id="day-fri" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title" style="color:var(--orange);">Friday</div>
+            <div class="card-tag" style="background:rgba(255,112,67,0.12);color:var(--orange);">Shoulders + Core</div>
+          </div>
+          <div class="time-block"><div class="tb-time">7:45</div><div class="tb-body"><div class="tb-title">Morning Routine <span class="badge b-dev">Devotion</span></div><div class="tb-note">Friday energy hits different — channel it.</div></div></div>
+          <div class="time-block"><div class="tb-time">8:50</div><div class="tb-body"><div class="tb-title">Upload + SEO + Engagement <span class="badge b-yt">YT</span></div><div class="tb-note">Publish video. Title/desc/tags. Reply to ALL comments. Post Short. Pin community question.</div></div></div>
+          <div class="time-block"><div class="tb-time">10:00</div><div class="tb-body"><div class="tb-title">Dropshipping — Marketing Day <span class="badge b-biz">Wix/DS</span></div><div class="tb-note">Store social posts. Test new products. Review weekly sales. 60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">11:00</div><div class="tb-body"><div class="tb-title">eBay Weekly Review + 2 Listings <span class="badge b-biz">eBay</span></div><div class="tb-note">Relist stale. List 2 new. Review what sold. 45 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">12:30</div><div class="tb-body"><div class="tb-title">LSAT — Full Timed Practice Section <span class="badge b-lsat">LSAT</span></div><div class="tb-note">Real test conditions. Full 35-min LR section. Grade and analyze. No skipping.</div></div></div>
+          <div class="time-block"><div class="tb-time">2:00</div><div class="tb-body"><div class="tb-title">Workout — Shoulders + Core <span class="badge b-gym">Gym</span></div><div class="tb-note">Arnold Press · Upright Rows · Dragon Flag · V-ups · Obliques. 45–60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:15</div><div class="tb-body"><div class="tb-title">Extended Drum Session <span class="badge b-drum">Drum</span></div><div class="tb-note">40–50 min. WGI intensity. Film technique content.</div></div></div>
+          <div class="time-block"><div class="tb-time">4:30</div><div class="tb-body"><div class="tb-title">SideShift — Batch Content <span class="badge b-biz">SideShift</span></div><div class="tb-note">Film 2–3 brand deliverables if you have the energy.</div></div></div>
+          <div class="time-block"><div class="tb-time">6:00</div><div class="tb-body"><div class="tb-title">Weekend Starts 🕊</div><div class="tb-note">Family, friends, go out. You worked all week.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Night Routine <span class="badge b-night">Night</span></div><div class="tb-note">Reading → Shower → Stretch → Prayer → Lights out.</div></div></div>
+        </div>
+      </div>
+
+      <div id="day-sat" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title" style="color:var(--red);">Saturday</div>
+            <div class="card-tag" style="background:rgba(255,68,68,0.12);color:var(--red);">Arms + Plyometrics</div>
+          </div>
+          <div class="time-block"><div class="tb-time">7:45</div><div class="tb-body"><div class="tb-title">Morning Routine <span class="badge b-dev">Devotion</span></div><div class="tb-note">Weekend doesn't mean skip. You're building something year-round.</div></div></div>
+          <div class="time-block"><div class="tb-time">8:50</div><div class="tb-body"><div class="tb-title">Weekend Creative Block <span class="badge b-yt">YT</span></div><div class="tb-note">Batch-record 2 gaming sessions OR 1 gaming + 1 drum video. 90 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">10:20</div><div class="tb-body"><div class="tb-title">eBay + Dropshipping Catch-Up <span class="badge b-biz">Business</span></div><div class="tb-note">Weekend push. List 2 items. Ship sold. DS review. 45 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">11:05</div><div class="tb-body"><div class="tb-title">LSAT — Inference + Must Be True <span class="badge b-lsat">LSAT</span></div><div class="tb-note">15–20% of all LR questions. Timed drills. 60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">1:00</div><div class="tb-body"><div class="tb-title">Workout — Arms + Plyometrics <span class="badge b-gym">Gym</span></div><div class="tb-note">21s Curls · Band Pushdowns · Box Jumps · Explosive Push-ups · Tuck Jumps. 60 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">2:15</div><div class="tb-body"><div class="tb-title">Drum Session <span class="badge b-drum">Drum</span></div><div class="tb-note">45 min. Run full book. Cap City World pressure mindset.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:30</div><div class="tb-body"><div class="tb-title">Editing + YouTube Analytics <span class="badge b-yt">YT</span></div><div class="tb-note">Edit footage. Check weekly analytics — what's working?</div></div></div>
+          <div class="time-block"><div class="tb-time">5:00</div><div class="tb-body"><div class="tb-title">Full Rest + Social</div><div class="tb-note">Evening is yours. Family, friends, entertainment. Zero guilt.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Night Routine <span class="badge b-night">Night</span></div><div class="tb-note">Reading → Shower → Stretch → Prayer → 11pm.</div></div></div>
+        </div>
+      </div>
+
+      <div id="day-sun" style="display:none">
+        <div class="card">
+          <div class="card-head">
+            <div class="card-title" style="color:var(--muted);">Sunday</div>
+            <div class="card-tag" style="background:rgba(107,122,153,0.12);color:var(--muted);">Full Rest</div>
+          </div>
+          <div class="time-block"><div class="tb-time">7:45</div><div class="tb-body"><div class="tb-title">Morning Routine — Slow Version <span class="badge b-dev">Devotion</span></div><div class="tb-note">Longer devotion. Sunday is God's day first. No rush.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Church / Rest</div><div class="tb-note">Service if you go, or rest and refuel spiritually at home.</div></div></div>
+          <div class="time-block"><div class="tb-time">12:00</div><div class="tb-body"><div class="tb-title">📖 Reading + Journaling</div><div class="tb-note">Extended 45–60 min. Journal the week. What worked? What changes?</div></div></div>
+          <div class="time-block"><div class="tb-time">2:00</div><div class="tb-body"><div class="tb-title">Weekly Business Review <span class="badge b-biz">Review</span></div><div class="tb-note">eBay + DS + SideShift + YouTube analytics. Plan the week ahead.</div></div></div>
+          <div class="time-block"><div class="tb-time">3:00</div><div class="tb-body"><div class="tb-title">Video Topic Planning <span class="badge b-yt">YT</span></div><div class="tb-note">Plan next week's videos. Loose scripts. Thumbnail notes. 45 min.</div></div></div>
+          <div class="time-block"><div class="tb-time">4:00</div><div class="tb-body"><div class="tb-title">Full Rest</div><div class="tb-note">The best weeks start with real rest. Eat. Sleep. Grow. 🙏</div></div></div>
+          <div class="time-block"><div class="tb-time">7:00</div><div class="tb-body"><div class="tb-title">Light Drum Session (Optional) <span class="badge b-drum">Drum</span></div><div class="tb-note">30 min max. Loose and playful. No pressure.</div></div></div>
+          <div class="time-block"><div class="tb-time">9:30</div><div class="tb-body"><div class="tb-title">Night Routine + Week Prep <span class="badge b-night">Night</span></div><div class="tb-note">Reading → Shower → Set Monday alarm → Review schedule → Prayer → 11pm.</div></div></div>
+        </div>
+      </div>
+
+      <div class="bottom-space"></div>
+    </div>
+
+    <!-- ===== LSAT SCREEN ===== -->
+    <div class="screen" id="screen-lsat">
+      <div class="screen-header">
+        <div class="screen-title">LSAT.</div>
+        <div class="screen-sub">December target. Fly with colors.</div>
+      </div>
+
+      <div class="alert purple">
+        <strong>The move:</strong> Flaw + Assumption + Inference = 40%+ of all LR questions. Master those three and you're already ahead of most test-takers. Then add Strengthen + Weaken and you own 60%+.
+      </div>
+
+      <div class="sec-label">7-Month Study Phases</div>
+      <div class="phase-cards">
+        <div class="phase-card">
+          <div class="phase-month">May – June · Month 1–2</div>
+          <div class="phase-focus">Foundation</div>
+          <div class="phase-desc">Learn test structure. Master Flaw + Assumption. Know all 14 question types. Start Logic Games basics. Khan Academy + 7Sage free tier.</div>
+        </div>
+        <div class="phase-card">
+          <div class="phase-month">July – August · Month 3–4</div>
+          <div class="phase-focus">Volume + Drills</div>
+          <div class="phase-desc">Timed drills every section. 1 full practice test/week. Find weak spots. Get a tutor locked in. Use LawHub official tests.</div>
+        </div>
+        <div class="phase-card" style="border-left-color:var(--green);">
+          <div class="phase-month">September – November · Month 5–7</div>
+          <div class="phase-focus" style="color:var(--green);">Test Mode</div>
+          <div class="phase-desc">2–3 full PTs per week. Full wrong-answer review. Simulate real conditions. Refine until score is locked. December = show time.</div>
+        </div>
+      </div>
+
+      <div class="sec-label">Test Structure</div>
+      <div class="card" style="margin-top:0;">
+        <div class="time-block"><div class="tb-time" style="color:var(--purple);">66.7%</div><div class="tb-body"><div class="tb-title">2 Logical Reasoning Sections</div><div class="tb-note">24–26 questions each · 35 min each · THIS is your score.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--cyan);">33.3%</div><div class="tb-body"><div class="tb-title">1 Reading Comprehension Section</div><div class="tb-note">4 passages · ~27 questions · 35 min</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--muted);">Unscore</div><div class="tb-body"><div class="tb-title">1 Experimental Section</div><div class="tb-note">Not counted. Could be LR or RC. You won't know which.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--gold);">Writing</div><div class="tb-body"><div class="tb-title">LSAT Argumentative Writing</div><div class="tb-note">Separate. Not scored but sent to all law schools. Don't sleep on it.</div></div></div>
+      </div>
+
+      <div class="sec-label">Question Types · Ranked by Frequency</div>
+      <div class="card" style="margin-top:0;">
+        <div class="time-block"><div class="tb-time" style="color:var(--purple);">#1</div><div class="tb-body"><div class="tb-title">Assumption <span class="badge b-lsat">Most Common</span></div><div class="tb-note">What must be true for the argument to hold? Negate it to check. Master this first.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--purple);">#2</div><div class="tb-body"><div class="tb-title">Flaw in Reasoning</div><div class="tb-note">What logical error does the argument make? Correlation vs causation, hasty generalization, false dichotomy, circular reasoning.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--purple);">#3</div><div class="tb-body"><div class="tb-title">Inference / Must Be True</div><div class="tb-note">What MUST follow from the passage? Be conservative — pick the safest, most supported answer.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--cyan);">#4</div><div class="tb-body"><div class="tb-title">Strengthen</div><div class="tb-note">Add info that makes the conclusion more likely. Appears ~2x more than Weaken on recent tests.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--cyan);">#5</div><div class="tb-body"><div class="tb-title">Weaken</div><div class="tb-note">Attack the gap between premise and conclusion. Flip side of Strengthen — study both together.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--muted);">#6</div><div class="tb-body"><div class="tb-title">Paradox / Resolve</div><div class="tb-note">Two seemingly contradictory facts. Find what explains how both can be true simultaneously.</div></div></div>
+        <div class="time-block"><div class="tb-time" style="color:var(--muted);">#7+</div><div class="tb-body"><div class="tb-title">Parallel · Principle · Method · Point at Issue · Role</div><div class="tb-note">Less frequent but still tested. Master the top 5 first, then tackle these.</div></div></div>
+      </div>
+
+      <div class="sec-label">Terminology Dictionary</div>
+      <div class="term-grid">
+        <div class="term-card"><div class="term-name">Conclusion</div><div class="term-def">The main claim being proven. Look for: "therefore," "thus," "so," "hence," "clearly."</div></div>
+        <div class="term-card"><div class="term-name">Premise</div><div class="term-def">Evidence supporting the conclusion. Look for: "because," "since," "given that."</div></div>
+        <div class="term-card"><div class="term-name">Necessary Assumption</div><div class="term-def">Must be true for the argument to hold. If false, the whole argument falls. Use the Negation Test.</div></div>
+        <div class="term-card"><div class="term-name">Sufficient Assumption</div><div class="term-def">If true, GUARANTEES the conclusion. Bridges the gap between evidence and conclusion completely.</div></div>
+        <div class="term-card"><div class="term-name">Conditional Logic</div><div class="term-def">If A→B. Does NOT mean B→A. Contrapositive: NOT B → NOT A. Always valid.</div></div>
+        <div class="term-card"><div class="term-name">Contrapositive</div><div class="term-def">Logically equivalent flip. If A→B, then NOT B→NOT A. Write it automatically.</div></div>
+        <div class="term-card"><div class="term-name">Correlation vs. Causation</div><div class="term-def">Just because A and B happen together doesn't mean A caused B. #1 most common LSAT flaw.</div></div>
+        <div class="term-card"><div class="term-name">Hasty Generalization</div><div class="term-def">Broad conclusion from too small a sample. "3 students failed so the whole class struggled."</div></div>
+        <div class="term-card"><div class="term-name">False Dichotomy</div><div class="term-def">Only two options presented when more exist. "Either with us or against us."</div></div>
+        <div class="term-card"><div class="term-name">Circular Reasoning</div><div class="term-def">Using the conclusion as a premise. The argument assumes what it's trying to prove.</div></div>
+        <div class="term-card"><div class="term-name">Ad Hominem</div><div class="term-def">Attacking the person instead of the argument. Irrelevant to the logic itself.</div></div>
+        <div class="term-card"><div class="term-name">Negation Test</div><div class="term-def">Negate an answer choice. If it destroys the argument → it's the Necessary Assumption.</div></div>
+      </div>
+
+      <div class="sec-label">Resources</div>
+      <div class="res-card">
+        <div class="res-icon">📊</div>
+        <div><div class="res-title">Khan Academy LSAT</div><div class="res-desc">Official LSAC partner. Free adaptive prep, real questions, personalized plan. Start here — Day 1.</div><span class="res-badge rb-free">Free · Official</span></div>
+      </div>
+      <div class="res-card">
+        <div class="res-icon">🎓</div>
+        <div><div class="res-title">7Sage LSAT</div><div class="res-desc">Best Logic Games explanations. "Blind review" method is the gold standard for rapid improvement.</div><span class="res-badge rb-free">Free Tier</span></div>
+      </div>
+      <div class="res-card">
+        <div class="res-icon">📖</div>
+        <div><div class="res-title">The LSAT Trainer</div><div class="res-desc">By Mike Kim. Best self-study book. Chapters 5–9 on flaws alone are worth it. Get this book.</div><span class="res-badge rb-paid">~$50</span></div>
+      </div>
+      <div class="res-card">
+        <div class="res-icon">📱</div>
+        <div><div class="res-title">LSAC LawHub</div><div class="res-desc">Official practice tests from the test-makers. Free account = free PTs. Only source of real questions.</div><span class="res-badge rb-free">lawhub.lsac.org</span></div>
+      </div>
+      <div class="bottom-space"></div>
+    </div>
+
+    <!-- ===== SIDESHIFT + MONEY SCREEN ===== -->
+    <div class="screen" id="screen-money">
+      <div class="screen-header">
+        <div class="screen-title">Money.</div>
+        <div class="screen-sub">SideShift · eBay · Dropshipping · YouTube</div>
+      </div>
+
+      <div class="alert cyan">
+        <strong>SideShift in one sentence:</strong> Brands pay you to make short videos for them. You already edit. This is your skills cashed out. $500–$1K/month is real. One creator went to $7K/month in 6 months.
+      </div>
+
+      <div class="sec-label">SideShift — 6-Step Process</div>
+      <div class="ss-step">
+        <div class="ss-num">01</div>
+        <div class="ss-title">Create Your Profile</div>
+        <div class="ss-body">Download the app or go to <strong>sideshift.app/creators</strong>. Sign up free — no resume, no follower requirement. Add social handles, link your 3–5 best videos, write a short bio. <strong>This is your common application to all brands at once.</strong></div>
+      </div>
+      <div class="ss-step">
+        <div class="ss-num">02</div>
+        <div class="ss-title">Earn Your UGC Badge (Do This Day 1)</div>
+        <div class="ss-body">Go to <strong>Badges</strong> in the app. Complete the free UGC Training Course. Creators with badges get prioritized in brand searches. <strong>Free. Takes a few hours. Directly increases your earning potential.</strong></div>
+      </div>
+      <div class="ss-step">
+        <div class="ss-num">03</div>
+        <div class="ss-title">Browse + Apply Every Day</div>
+        <div class="ss-body">Apply to 5–10 gigs per day. Gaming, tech, music, entertainment brands are your immediate fit. One tap — no resumes, no complicated applications. <strong>More applications = more gigs. Simple math.</strong></div>
+      </div>
+      <div class="ss-step">
+        <div class="ss-num">04</div>
+        <div class="ss-title">Get Selected + Read the Brief</div>
+        <div class="ss-body">Brand selects you → you get a <strong>campaign brief</strong>: what to create, what to say, format, deadline. <strong>Read it fully. Understanding the brief is the difference between getting paid and getting rejected.</strong></div>
+      </div>
+      <div class="ss-step">
+        <div class="ss-num">05</div>
+        <div class="ss-title">Film + Edit Your Deliverable</div>
+        <div class="ss-body">Create content to spec. UGC = authentic, not polished. Typically <strong>15–60 seconds</strong>. Film, edit in CapCut, follow the brief. Submit before deadline. Quality + speed = more gigs + direct brand relationships.</div>
+      </div>
+      <div class="ss-step">
+        <div class="ss-num">06</div>
+        <div class="ss-title">Submit + Get Paid Instantly</div>
+        <div class="ss-body">Upload through SideShift. Brand reviews it (24–72 hrs). Once approved, <strong>payment hits your bank immediately</strong> — no 30-day wait. Use performance stats to pitch higher-paying deals next time.</div>
+      </div>
+
+      <div class="alert green" style="margin-top:12px;">
+        <strong>Path to $1K/month:</strong> 1–2 deliverables/week at $50–$150/video = $200–$600 to start. As your profile builds, you'll land $150–$500 deals. Consider SideShift Pro (paid subscription) once you're consistent — unlimited applications + priority access to premium gigs.
+      </div>
+
+      <div class="sec-label">eBay Daily System</div>
+      <div class="card" style="margin-top:0;">
+        <div class="time-block"><div class="tb-time">Daily</div><div class="tb-body"><div class="tb-title">List 2 items every single day</div><div class="tb-note">Photos, title with keywords, description, price research (check sold comps). 30–40 min. 2/day × 7 days = 14 new listings per week. That's passive income stacking.</div></div></div>
+        <div class="time-block"><div class="tb-time">Sunday</div><div class="tb-body"><div class="tb-title">Weekly review + relist</div><div class="tb-note">Check what sold. Relist stale items at lower price. Research new electronics to source.</div></div></div>
+        <div class="time-block"><div class="tb-time">Always</div><div class="tb-body"><div class="tb-title">Ship same-day or next-day</div><div class="tb-note">Fast shipping = 5-star reviews = more sales. Reviews compound your store ranking.</div></div></div>
+      </div>
+
+      <div class="sec-label">Dropshipping — Wix Store System</div>
+      <div class="card" style="margin-top:0;">
+        <div class="time-block"><div class="tb-time">Week 1–2</div><div class="tb-body"><div class="tb-title">Build the store foundation</div><div class="tb-note">Niche selection, supplier research (AutoDS, Spocket, AliExpress), Wix store design, product pages.</div></div></div>
+        <div class="time-block"><div class="tb-time">Week 3–4</div><div class="tb-body"><div class="tb-title">Launch + test first products</div><div class="tb-note">Start with 5–10 winning products. Run test orders. Set up social media for the store.</div></div></div>
+        <div class="time-block"><div class="tb-time">Month 2+</div><div class="tb-body"><div class="tb-title">Scale what works</div><div class="tb-note">Double down on products getting views/sales. Cut the ones that aren't. Reinvest profit.</div></div></div>
+      </div>
+
+      <div class="sec-label">Reading List</div>
+      <div class="book-card">
+        <div class="book-title">Just Mercy</div>
+        <div class="book-author">Bryan Stevenson · Pre-Law Essential</div>
+        <div class="book-desc">True stories of legal injustice. Perfect pre-law reading. Will sharpen your legal instincts AND give you YouTube video ideas.</div>
+      </div>
+      <div class="book-card">
+        <div class="book-title">Thinking, Fast and Slow</div>
+        <div class="book-author">Daniel Kahneman · LSAT Brain-Builder</div>
+        <div class="book-desc">Understanding cognitive biases helps you spot LSAT answer traps. Also changes how you think about business decisions.</div>
+      </div>
+      <div class="book-card">
+        <div class="book-title">The 48 Laws of Power</div>
+        <div class="book-author">Robert Greene · Sociology + Strategy</div>
+        <div class="book-desc">Strategic thinking, sociological analysis. Pairs perfectly with your gaming commentary and sociology background.</div>
+      </div>
+      <div class="book-card">
+        <div class="book-title">The Millionaire Next Door</div>
+        <div class="book-author">Stanley + Danko · Wealth Psychology</div>
+        <div class="book-desc">Changes how you think about money. Great read alongside your entrepreneurial summer.</div>
+      </div>
+      <div class="bottom-space"></div>
+    </div>
+
+    <!-- ===== DRUMS + FITNESS SCREEN ===== -->
+    <div class="screen" id="screen-drums">
+      <div class="screen-header">
+        <div class="screen-title">Drums +<br>Fitness.</div>
+        <div class="screen-sub">Cap City World. V-taper. Both.</div>
+      </div>
+
+      <div class="alert gold">
+        <strong>Cap City World mindset:</strong> You're already a medalist. The only difference between where you are and World is reps. Every single drum session this summer is an audition. Treat it that way.
+      </div>
+
+      <div class="sec-label">Weekly Drum Schedule</div>
+      <div class="card" style="margin-top:0;">
+        <div class="time-block"><div class="tb-time">Mon</div><div class="tb-body"><div class="tb-title">Technique Session · 45–60 min</div><div class="tb-note">Rudiments, rolls, timing. Cap City World prep. Focused work.</div></div></div>
+        <div class="time-block"><div class="tb-time">Tue</div><div class="tb-body"><div class="tb-title">Film Content Clip · 45 min</div><div class="tb-note">Record yourself. Watch playback with WGI-level critical eye.</div></div></div>
+        <div class="time-block"><div class="tb-time">Wed</div><div class="tb-body"><div class="tb-title">Extended Session · 60–75 min ⭐</div><div class="tb-note">Your BEST session of the week. No workout fatigue. Full run-throughs.</div></div></div>
+        <div class="time-block"><div class="tb-time">Thu</div><div class="tb-body"><div class="tb-title">Technique + Film · 30–45 min</div><div class="tb-note">Short session after workout. Film a clip for content.</div></div></div>
+        <div class="time-block"><div class="tb-time">Fri</div><div class="tb-body"><div class="tb-title">Intensity Session · 40–50 min</div><div class="tb-note">WGI-level intensity. Film technique content.</div></div></div>
+        <div class="time-block"><div class="tb-time">Sat</div><div class="tb-body"><div class="tb-title">Full Book Run · 45 min</div><div class="tb-note">Run the whole book. Cap City World pressure. Count every rep.</div></div></div>
+        <div class="time-block"><div class="tb-time">Sun</div><div class="tb-body"><div class="tb-title">Light Session (Optional) · 30 min</div><div class="tb-note">Loose and playful. No pressure. Let the hands breathe.</div></div></div>
+      </div>
+
+      <div class="sec-label">Workout Split — Bodyweight · Home</div>
+      <div class="workout-list">
+        <div class="workout-item">
+          <div class="wo-bar" style="background:var(--cyan);"></div>
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="wo-day">Mon</div><div class="wo-focus">Shoulders + Arms</div></div>
+            <div class="wo-exercises">OHP 4×10 · Lateral Raises 4×15 · Curl Variations · Overhead Tricep Extension</div>
+          </div>
+        </div>
+        <div class="workout-item">
+          <div class="wo-bar" style="background:var(--gold);"></div>
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="wo-day">Tue</div><div class="wo-focus">Back + Biceps</div></div>
+            <div class="wo-exercises">Wide-Grip Pull-ups · Band Pull-Aparts · DB Row · Hammer Curls</div>
+          </div>
+        </div>
+        <div class="workout-item rest">
+          <div class="wo-bar" style="background:var(--dim);"></div>
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="wo-day">Wed</div><div class="wo-focus">Active Rest</div></div>
+            <div class="wo-exercises">Walk + stretch · Mobility work</div>
+          </div>
+        </div>
+        <div class="workout-item">
+          <div class="wo-bar" style="background:var(--purple);"></div>
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="wo-day">Thu</div><div class="wo-focus">Chest + Triceps</div></div>
+            <div class="wo-exercises">Push-ups (loaded) · DB Floor Press · Tricep Kickbacks · Diamond Push-ups</div>
+          </div>
+        </div>
+        <div class="workout-item">
+          <div class="wo-bar" style="background:var(--orange);"></div>
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="wo-day">Fri</div><div class="wo-focus">Shoulders + Core</div></div>
+            <div class="wo-exercises">Arnold Press · Upright Rows · Dragon Flag · V-ups · Oblique Circuit</div>
+          </div>
+        </div>
+        <div class="workout-item">
+          <div class="wo-bar" style="background:var(--red);"></div>
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="wo-day">Sat</div><div class="wo-focus">Arms + Plyometrics</div></div>
+            <div class="wo-exercises">21s Curls · Band Pushdowns · Box Jumps · Explosive Push-ups · Tuck Jumps</div>
+          </div>
+        </div>
+        <div class="workout-item rest">
+          <div class="wo-bar" style="background:var(--dim);"></div>
+          <div>
+            <div style="display:flex;gap:10px;align-items:center;"><div class="wo-day">Sun</div><div class="wo-focus">Full Rest</div></div>
+            <div class="wo-exercises">Eat. Sleep. Grow. 🙏</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sec-label">3-Month Progress Arc</div>
+      <div class="phase-cards">
+        <div class="phase-card" style="border-left-color:var(--gold);">
+          <div class="phase-month">Month 1 — June</div>
+          <div class="phase-focus" style="color:var(--gold);">Build the Base</div>
+          <div class="phase-desc">Focus on form and volume. 3–4 sets per exercise. Progressive overload every week. Arms will fill out noticeably.</div>
+        </div>
+        <div class="phase-card" style="border-left-color:var(--cyan);">
+          <div class="phase-month">Month 2 — July</div>
+          <div class="phase-focus" style="color:var(--cyan);">Push Intensity</div>
+          <div class="phase-desc">Add drop sets and supersets. Increase to 4–5 sets. Track measurements weekly. Shoulders widen noticeably.</div>
+        </div>
+        <div class="phase-card" style="border-left-color:var(--green);">
+          <div class="phase-month">Month 3 — August</div>
+          <div class="phase-focus" style="color:var(--green);">Refine + Define</div>
+          <div class="phase-desc">Cut rest periods. Add bands for extra resistance. Clean up diet. Hit 15"+ by end of August with consistency.</div>
+        </div>
+      </div>
+      <div class="bottom-space"></div>
+    </div>
+
+  </div><!-- end content-area -->
+
+  <!-- BOTTOM NAV -->
+  <nav class="bottom-nav">
+    <button class="nav-btn active" onclick="switchScreen('home', this)" aria-label="Home">
+      <span class="nav-icon">🏠</span>
+      <span class="nav-label">Home</span>
+    </button>
+    <button class="nav-btn" onclick="switchScreen('schedule', this)" aria-label="Schedule">
+      <span class="nav-icon">📅</span>
+      <span class="nav-label">Schedule</span>
+    </button>
+    <button class="nav-btn" onclick="switchScreen('lsat', this)" aria-label="LSAT">
+      <span class="nav-icon">⚖️</span>
+      <span class="nav-label">LSAT</span>
+    </button>
+    <button class="nav-btn" onclick="switchScreen('money', this)" aria-label="Money">
+      <span class="nav-icon">💰</span>
+      <span class="nav-label">Money</span>
+    </button>
+    <button class="nav-btn" onclick="switchScreen('drums', this)" aria-label="Drums">
+      <span class="nav-icon">🥁</span>
+      <span class="nav-label">Drums</span>
+    </button>
+  </nav>
+
+</div><!-- end app -->
+
+<script>
+function switchScreen(id, btn) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('screen-' + id).classList.add('active');
+  btn.classList.add('active');
+  document.getElementById('contentArea').scrollTop = 0;
+}
+
+let currentDay = 'mon';
+function showDay(day) {
+  ['mon','tue','wed','thu','fri','sat','sun'].forEach(d => {
+    const el = document.getElementById('day-' + d);
+    if (el) el.style.display = d === day ? 'block' : 'none';
+  });
+  document.querySelectorAll('.day-pill').forEach((p, i) => {
+    const days = ['mon','tue','wed','thu','fri','sat','sun'];
+    p.classList.toggle('active', days[i] === day);
+  });
+  currentDay = day;
+  document.getElementById('contentArea').scrollTop = 0;
+}
+
+// Highlight today's day on load
+const dayNames = ['sun','mon','tue','wed','thu','fri','sat'];
+const today = dayNames[new Date().getDay()];
+showDay(today);
+// Scroll day strip to highlight pill
+setTimeout(() => {
+  const dayIdx = ['mon','tue','wed','thu','fri','sat','sun'].indexOf(today);
+  const strip = document.getElementById('dayStrip');
+  const pills = strip.querySelectorAll('.day-pill');
+  if (pills[dayIdx]) {
+    pills[dayIdx].scrollIntoView({behavior:'smooth', block:'nearest', inline:'center'});
+  }
+}, 100);
+
+// Service Worker for offline
+if ('serviceWorker' in navigator) {
+  const sw = `
+    self.addEventListener('install', e => {
+      e.waitUntil(
+        caches.open('sb26-v1').then(c => c.addAll(['./']))
+      );
+    });
+    self.addEventListener('fetch', e => {
+      e.respondWith(
+        caches.match(e.request).then(r => r || fetch(e.request).catch(() => caches.match('./')))
+      );
+    });
+  `;
+  const swBlob = new Blob([sw], {type:'text/javascript'});
+  const swUrl = URL.createObjectURL(swBlob);
+  navigator.serviceWorker.register(swUrl).catch(() => {});
+}
+</script>
+</body>
+</html>
